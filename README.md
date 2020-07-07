@@ -24,6 +24,9 @@ Based on [telefon-one/react-native-sip2-builder](https://github.com/telefon-one/
 #define PJMEDIA_SPEEX_AEC_USE_DENOISE 1
 ```
 
+overwrite `/pjsip/third_party/build/speex/config.h` for speex to operate in floating-point
+
+
 ## Build for Android
 ```
 git clone https://github.com/goodatlas/react-native-sip2-builder
