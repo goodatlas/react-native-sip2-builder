@@ -156,6 +156,7 @@ RUN IFS=" " && \
 
 # Build pjsip
 ADD ./build_pjsip.sh /usr/local/sbin/
+ADD ./config.h /sources/pjsip/third_party/build/speex/config.h
 RUN IFS=" " && \
     for arch in $TARGET_ARCHS; \
     do \
