@@ -20,11 +20,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 
 # ENV TARGET_ARCHS "armeabi armeabi-v7a x86 mips arm64-v8a x86_64 mips64"
 ENV TARGET_ARCHS "armeabi-v7a x86 arm64-v8a x86_64" 
-ENV ANDROID_NDK_DOWNLOAD_URL "https://dl.google.com/android/repository/android-ndk-r17b-linux-x86_64.zip"
+ENV ANDROID_NDK_DOWNLOAD_URL "https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip"
 ENV ANDROID_SDK_DOWNLOAD_URL "https://dl.google.com/android/repository/tools_r25.2.5-linux.zip"
-ENV ANDROID_SETUP_APIS "19 30"
+ENV ANDROID_SETUP_APIS "23 30"
 ENV ANDROID_BUILD_TOOLS_VERSION 30
-ENV ANDROID_TARGET_API 19
+ENV ANDROID_TARGET_API 23
 
 ENV PJSIP_DOWNLOAD_URL "https://github.com/pjsip/pjproject/archive/2.9.tar.gz"
 
@@ -32,7 +32,7 @@ ENV SWIG_DOWNLOAD_URL "http://prdownloads.sourceforge.net/swig/swig-3.0.12.tar.g
 
 ENV OPENSSL_DOWNLOAD_URL "https://www.openssl.org/source/openssl-1.0.2s.tar.gz"
 
-ENV OPENH264_DOWNLOAD_URL "https://github.com/cisco/openh264/archive/v1.8.0.tar.gz"
+ENV OPENH264_DOWNLOAD_URL "https://github.com/cisco/openh264/archive/v2.1.1.tar.gz"
 ENV OPENH264_TARGET_NDK_LEVEL 23
 
 ENV OPUS_DOWNLOAD_URL "http://downloads.xiph.org/releases/opus/opus-1.3.1.tar.gz"
@@ -70,18 +70,18 @@ RUN cd /sources/android_sdk/tools && \
     for api in $ANDROID_SETUP_APIS; \
     do \
       PACKAGE=$(echo "${ALL_SDK}" | grep "API ${api}" | head -n 1 | awk '{print $1}' | cut -d'-' -f 1); \
-      echo yes | ./android update sdk --all --filter ${PACKAGE} --no-ui --force; \
+      echo yes | ./android update sdk --all --filter "${PACKAGE}" --no-ui --force; \
     done && \
     PACKAGE=$(echo "${ALL_SDK}" | grep "Android SDK Platform-tools" | head -n 1 | awk '{print $1}' | cut -d'-' -f 1) && \
-    echo yes | ./android update sdk --all --filter ${PACKAGE} --no-ui --force && \
-    PACKAGE=$(echo "${ALL_SDK}" | grep "Build-tools" | grep "${BUILD_TOOLS_VERSION}" | head -n 1 | awk '{print $1}' | cut -d'-' -f 1) && \
-    echo yes | ./android update sdk --all --filter ${PACKAGE} --no-ui --force
+    echo yes | ./android update sdk --all --filter "${PACKAGE}" --no-ui --force && \
+    PACKAGE=$(echo "${ALL_SDK}" | grep "Build-tools" | grep "${ANDROID_BUILD_TOOLS_VERSION}" | head -n 1 | awk '{print $1}' | cut -d'-' -f 1) && \
+    echo yes | ./android update sdk --all --filter "${PACKAGE}" --no-ui --force
 
 # Download Pjsip
 RUN cd /sources/pjsip && \
-    curl -L -# -o pjsip.tar.bz2 "$PJSIP_DOWNLOAD_URL" && \
-    tar xjf pjsip.tar.bz2 && \
-    rm -rf pjsip.tar.bz2 && \
+    curl -L -# -o pjsip.tar.gz "$PJSIP_DOWNLOAD_URL" && \
+    tar xzf pjsip.tar.gz && \
+    rm -rf pjsip.tar.gz && \
     mv pjproject-*/* ./
 
 # Download Swig

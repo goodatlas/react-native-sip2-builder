@@ -11,6 +11,7 @@ cp -r /sources/openssl /tmp/openssl
 
 if [ "$TARGET_ARCH" == "armeabi-v7a" ]
 then
+    ARCH=arm
     TARGET=android-armv7
     TOOLCHAIN=arm-linux-androideabi-4.9
     export TOOL=arm-linux-androideabi
@@ -18,6 +19,7 @@ then
     export ARCH_LINK="-march=armv7-a -Wl,--fix-cortex-a8"
 elif [ "$TARGET_ARCH" == "arm64-v8a" ]
 then
+    ARCH=arm64
     TARGET=android
     TOOLCHAIN=aarch64-linux-android-4.9
     export TOOL=aarch64-linux-android
@@ -32,6 +34,7 @@ then
     export ARCH_LINK=
 elif [ "$TARGET_ARCH" == "x86" ]
 then
+    ARCH=x86
     TARGET=android-x86
     TOOLCHAIN=x86-4.9
     export TOOL=i686-linux-android
@@ -39,6 +42,7 @@ then
     export ARCH_LINK=
 elif [ "$TARGET_ARCH" == "x86_64" ]
 then
+    ARCH=x86_64
     TARGET=linux-x86_64
     TOOLCHAIN=x86_64-4.9
     export TOOL=x86_64-linux-android
@@ -83,10 +87,15 @@ export LDFLAGS=" ${ARCH_LINK} "
 
 cd /sources/android_ndk/build/tools/
 
-./make-standalone-toolchain.sh \
-    --ndk-dir=/sources/android_ndk \
-    --platform=android-${ANDROID_TARGET_API} \
-    --toolchain=${TOOLCHAIN} \
+#./make-standalone-toolchain.sh \
+#    --ndk-dir=/sources/android_ndk \
+#    --platform=android-${ANDROID_TARGET_API} \
+#    --toolchain=${TOOLCHAIN} \
+#    --install-dir="/tmp/openssl/android-toolchain"
+
+python3 ./make_standalone_toolchain.py \
+    --api=${ANDROID_TARGET_API} \
+    --arch=${ARCH} \
     --install-dir="/tmp/openssl/android-toolchain"
 
 cd /tmp/openssl/
@@ -94,6 +103,8 @@ cd /tmp/openssl/
 ################################
 # TODO
 ################################
+
+sed -i -e 's/-mandroid//' Configure
 
 ./Configure ${TARGET} no-asm no-unit-test --openssldir=${TARGET_PATH}
 make && make install

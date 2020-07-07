@@ -9,7 +9,7 @@ cd /tmp/openh264
 
 sed -i "s*PREFIX=/usr/local*PREFIX=${TARGET_PATH}*g" Makefile
 
-ARGS="OS=android ENABLEPIC=Yes NDKROOT=/sources/android_ndk NDKLEVEL=${OPENH264_TARGET_NDK_LEVEL} "
+ARGS="OS=android ENABLEPIC=Yes NDKROOT=/sources/android_ndk NDKLEVEL=${OPENH264_TARGET_NDK_LEVEL} NDK_TOOLCHAIN_VERSION=clang clean "
 ARGS="${ARGS}TARGET=android-${ANDROID_TARGET_API} ARCH="
 
 if [ "$TARGET_ARCH" == "armeabi" ]
