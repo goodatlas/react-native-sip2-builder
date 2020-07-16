@@ -19,6 +19,7 @@ cat <<EOF > "/tmp/pjsip/pjlib/include/pj/config_site.h"
 #define PJMEDIA_HAS_SPEEX_AEC 1
 #define PJMEDIA_SPEEX_AEC_USE_AGC 1
 #define PJMEDIA_SPEEX_AEC_USE_DENOISE 1
+#define PJMEDIA_HAS_OPUS_CODEC 1
 EOF
 
 cd /tmp/pjsip
