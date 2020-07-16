@@ -20,6 +20,8 @@ cat <<EOF > "/tmp/pjsip/pjlib/include/pj/config_site.h"
 #define PJMEDIA_SPEEX_AEC_USE_AGC 1
 #define PJMEDIA_SPEEX_AEC_USE_DENOISE 1
 #define PJMEDIA_HAS_OPUS_CODEC 1
+#define PJMEDIA_CODEC_OPUS_DEFAULT_SAMPLE_RATE 8000
+#define PJMEDIA_CODEC_OPUS_DEFAULT_CBR PJ_TRUE
 EOF
 
 cd /tmp/pjsip
