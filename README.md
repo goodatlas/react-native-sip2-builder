@@ -24,10 +24,10 @@ Based on [telefon-one/react-native-sip2-builder](https://github.com/telefon-one/
 #define PJMEDIA_SPEEX_AEC_USE_DENOISE 1
 #define PJMEDIA_HAS_OPUS_CODEC 1
 #define PJMEDIA_CODEC_OPUS_DEFAULT_SAMPLE_RATE 16000
-#define PTIME 40
-#define PJMEDIA_CODEC_OPUS_DEFAULT_BIT_RATE 24000
-#define PJMEDIA_CODEC_OPUS_DEFAULT_COMPLEXITY 1
-#define PJMEDIA_CODEC_OPUS_DEFAULT_CBR PJ_TRUE
+#define PTIME 20
+#define PJMEDIA_CODEC_OPUS_DEFAULT_BIT_RATE 0
+#define PJMEDIA_CODEC_OPUS_DEFAULT_COMPLEXITY 5
+#define PJMEDIA_CODEC_OPUS_DEFAULT_CBR PJ_FALSE
 ```
 
 overwrite `/pjsip/third_party/build/speex/config.h` for speex to operate in floating-point
